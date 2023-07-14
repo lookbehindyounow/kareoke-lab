@@ -1,3 +1,5 @@
+from classes.club import Club
+
 class Guest:
     def __init__(self,name=str,fave_songs=list):
         self.name=name
@@ -6,6 +8,8 @@ class Guest:
     def add_fave_songs(self,songs=list):
         self.fave_songs+=songs
 
-    def check_into_room(self,rooms=list,number=int):
-        self.room=number
-        rooms[number].check_in_guest(self)
+    def check_in(self,club=Club,number=int):
+        club.rooms[number].check_in(self)
+
+    def check_out(self,club=Club):
+        club.check_out(self)
