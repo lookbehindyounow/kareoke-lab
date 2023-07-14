@@ -1,4 +1,6 @@
 from classes.song import Song
 
 class Room:
-    pass
+    def __init__(self,number):
+        self.number=number
+        self.songs=set()
