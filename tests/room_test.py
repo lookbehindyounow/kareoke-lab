@@ -14,7 +14,7 @@ class TestRoom(unittest.TestCase):
         # with the same instance of Room
 
     def test_has_attributes(self):
-        self.assertEqual(self.club.rooms[0].songs,set())
+        self.assertEqual(self.club.rooms[0].songs,[])
         self.assertEqual(self.club.rooms[0].guests,[])
 
     def test_check_in(self):
@@ -33,3 +33,7 @@ class TestRoom(unittest.TestCase):
         self.assertEqual(self.club.rooms[0].guests[0].name,"Kev")
         self.club.check_out(self.club.rooms[0].guests[0])
         self.assertEqual(self.club.rooms[0].guests,[])
+
+    def test_add_song(self):
+        self.club.rooms[0].add_song("Oasis")
+        self.assertEqual(self.club.rooms[0].songs[0].name,"Oasis")
