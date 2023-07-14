@@ -1,5 +1,6 @@
 import unittest
 from classes.room import Room
+from classes.guest import Guest
 from classes.song import Song
 
 class TestRoom(unittest.TestCase):
@@ -9,3 +10,9 @@ class TestRoom(unittest.TestCase):
     def test_has_attributes(self):
         self.assertEqual(self.room.number,0)
         self.assertEqual(self.room.songs,set())
+
+    def test_check_in_guest(self):
+        self.room.check_in_guest("Kev",["Oasis"])
+        self.room.check_in_guest("Imaginary Kev")
+        self.room.check_in_guest("Imaginary Kev",[])
+        self.room.check_in_guest("Kev who hates music",["None"])
