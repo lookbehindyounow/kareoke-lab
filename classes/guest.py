@@ -7,7 +7,8 @@ class Guest:
         self.fave_songs+=songs
 
     def check_in(self,club,number=int):
-        club.rooms[number].check_in(self)
+        if club.rooms[number].check_in(self):
+            print("they're at capacity")
 
     def check_out(self,club):
         club.check_out(self)

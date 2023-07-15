@@ -9,7 +9,7 @@ from classes.club import Club
 class TestRoom(unittest.TestCase):
     def setUp(self):
         self.club=Club("Great night kareoke")
-        self.club.rooms=[Room(self.club) for i in range(10)]
+        self.club.rooms=[Room(self.club,10) for i in range(10)]
         # tried [Room()]*10 but it just filled every index
         # with the same instance of Room
 
@@ -37,3 +37,11 @@ class TestRoom(unittest.TestCase):
     def test_add_song(self):
         self.club.rooms[0].add_song("Oasis")
         self.assertEqual(self.club.rooms[0].songs[0].name,"Oasis")
+
+    def test_capacity_check(self):
+        [self.club.rooms[0].check_in("Kev",["Oasis","Happy Birthday"]) for i in range(9)]
+        returned=self.club.rooms[0].check_in("Kev",["Oasis","Happy Birthday"]) # 10th guest
+        self.assertEqual(returned,None)
+        returned=self.club.rooms[0].check_in("Kev",["Oasis","Happy Birthday"]) # 11th guest
+        self.assertEqual(len(self.club.rooms),10)
+        self.assertEqual(returned,True)

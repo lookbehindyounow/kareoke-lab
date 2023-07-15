@@ -9,7 +9,7 @@ class TestGuest(unittest.TestCase):
         self.test_songs=[Song("Oasis"),Song("Happy Birthday")]
         self.guest=Guest("Kev",self.test_songs)
         self.club=Club("Great night kareoke")
-        self.club.rooms=[Room(self.club) for i in range(10)]
+        self.club.rooms=[Room(self.club,10) for i in range(10)]
 
     def test_has_attributes(self):
         self.assertEqual(self.guest.name,"Kev")
@@ -40,3 +40,11 @@ class TestGuest(unittest.TestCase):
         self.assertEqual(self.guest.fave_songs,self.club.rooms[0].songs)
         self.guest.add_songs_to_room(self.club,"beetoven 14 sympony")
         self.assertEqual(self.club.rooms[0].songs[2].name,"beetoven 14 sympony")
+
+    def test_capacity_check(self):
+        self.guest2=Guest("Dan")
+        temp_guests=[Guest(str(i),[]) for i in range(10)]
+        [guest.check_in(self.club,0) for guest in temp_guests]
+        self.assertEqual(len(self.club.rooms[0].guests),10)
+        self.guest2.check_in(self.club,0) # 11th guest
+        self.assertEqual(len(self.club.rooms[0].guests),10)

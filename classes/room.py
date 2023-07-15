@@ -2,10 +2,11 @@ from classes.song import Song
 from classes.guest import Guest
 
 class Room:
-    def __init__(self,club):
+    def __init__(self,club,capacity):
         self.songs=[]
         self.club=club
         self.guests=[]
+        self.capacity=capacity
 
     def check_out(self,guest):
         try:
@@ -14,12 +15,16 @@ class Room:
             pass
 
     def check_in(self,guest=str,fave_songs=[]):
-        if type(guest)==Guest:
-            guest.add_fave_songs(fave_songs)
-            [room.check_out(guest) for room in self.club.rooms]
-            self.guests.append(guest)
+        if len(self.guests)<self.capacity:
+            if type(guest)==Guest:
+                guest.add_fave_songs(fave_songs)
+                [room.check_out(guest) for room in self.club.rooms]
+                self.guests.append(guest)
+            else:
+                self.guests.append(Guest(guest,fave_songs))
         else:
-            self.guests.append(Guest(guest,fave_songs))
+            print("we're at capacity")
+            return True
 
     def add_song(self,song=str):
         if song in self.songs or song in [room_song.name for room_song in self.songs]:
