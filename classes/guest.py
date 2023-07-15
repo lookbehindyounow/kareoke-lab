@@ -1,7 +1,11 @@
 class Guest:
-    def __init__(self,name=str,fave_songs=list):
+    def __init__(self,name=str,wallet=float,fave_songs=list):
         self.name=name
+        self.wallet=wallet
         self.fave_songs=fave_songs
+
+    def add_funds(self,amount):
+        self.wallet+=amount
 
     def add_fave_songs(self,songs=list):
         self.fave_songs+=songs
@@ -9,6 +13,9 @@ class Guest:
     def check_in(self,club,number=int):
         if club.rooms[number].check_in(self):
             print("they're at capacity")
+        else:
+            self.wallet-=club.fee
+            club.pay_in(club.fee)
 
     def check_out(self,club):
         club.check_out(self)
